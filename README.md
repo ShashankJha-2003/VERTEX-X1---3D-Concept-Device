@@ -1,35 +1,58 @@
-# VERTEX X1 — 3D Concept Device (Three.js + Vite)
+# VERTEX X1 – 3D Concept Device (Three.js + GSAP)
 
-This project is a **single-page experimental product concept** built to explore how modern frontend tooling can be combined with **Three.js** to render and control a 3D object inside a web interface.
+This is a single-page product concept showcasing a 3D smartphone model using Three.js, with UI and interaction animations handled using GSAP.
 
-The primary goal was **engineering clarity**, not visual flash.
+The goal of this project was to understand how real-world frontend animation pipelines work when combining:
+- WebGL (Three.js)
+- UI animation libraries (GSAP)
+- Modern build tools (Vite)
 
 ---
 
-## Why this project exists
+## Why I built this
 
-The objective of this project was to:
+I wanted to go beyond static webpages and explore how 3D rendering and motion design are integrated into modern product websites.
 
-- Understand how **Three.js** integrates with a modern build tool (Vite)
-- Work with **3D geometry, lighting, camera, and controls**
-- Structure a clean project where **logic, rendering, and UI concerns are separated**
-- Practice writing code that is **readable and explainable**, not just functional
+The focus was **not on visual flash**, but on:
+- Scene setup
+- Camera and lighting decisions
+- Clean separation between UI and 3D logic
+- Understanding how animation timelines affect user perception
 
-This is intentionally kept as a **single-page application**.
+---
+
+## What I implemented myself
+
+- Project setup using Vite
+- Three.js scene, camera, lighting and geometry
+- Phone body and frame using `RoundedBoxGeometry`
+- OrbitControls configuration for controlled interaction
+- GSAP-based entrance and hover animations
+- Responsive behavior on resize
+
+---
+
+## Learning sources & assistance
+
+- Three.js fundamentals were learned from official docs and tutorials
+- GSAP animation patterns were explored with guidance and experimentation
+- Some implementation ideas were refined using AI tools for learning purposes
+
+All code was reviewed and modified to ensure I understand each part.
 
 ---
 
 ## Tech Stack
 
-- **Vite** — project setup, dev server, and production build
-- **Three.js** — 3D rendering
-- **GSAP** — animation support (planned / minimal usage)
-- **Vanilla JavaScript** — no framework abstraction
-- **HTML + CSS** — UI layout and structure
-
-No frontend frameworks were used to keep the focus on core concepts.
+- Three.js
+- GSAP
+- Vite
+- TailwindCSS
 
 ---
 
-## Project Structure
+## How to run locally
 
+```bash
+npm install
+npm run dev
