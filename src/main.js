@@ -5,7 +5,7 @@ Start
 Jan 13, 2026 -
 */
 
-// === SCROLLTRIGGER IMPORT + REGISTER (TOP PE) ===
+// === SCROLLTRIGGER IMPORT + REGISTER ===
 import { gsap } from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
