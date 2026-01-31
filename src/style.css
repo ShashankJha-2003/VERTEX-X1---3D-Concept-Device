@@ -3,5 +3,26 @@
 #phone-canvas {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   display: block;
 }
+
+.hero-line {
+  position: absolute;
+  width: 100%;
+  left: 12%;
+  top: 0;
+}
+
+
+/* .phone-canvas {
+  width: 100%;
+  max-width: 450px;
+  height: 85vh;
+  max-height: 850px;
+}
+
+#hero-section{
+  min-height: 100vh;
+} */
+

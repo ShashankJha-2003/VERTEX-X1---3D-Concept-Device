@@ -5,29 +5,38 @@ Start
 Jan 13, 2026 -
 */
 
+// === SCROLLTRIGGER IMPORT + REGISTER (TOP PE) ===
+import { gsap } from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { gsap } from 'gsap';
 
 /* ================= UI SETUP ================= */
 /* Premium dark UI using TailwindCSS */
 document.getElementById('app').innerHTML = `
-  <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black p-8">
+  <div class="min-h-screen bg-gradient-to-br from-slate-800 via-gray-900 to-black p-8">
 
     <!-- Hero Section -->
-
-    <div class="max-w-4xl mx-auto text-center py-20">
-      <!-- Main title with multi-color gradient - responsive text sizing -->
+    <div class="max-w-4xl mx-auto text-center py-20 hero-pin">
       <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent mb-8">
         VERTEX PHONE X1
-
       </h1>
-      <!-- Subtitle with responsive text and proper max-width wrapping -->
-      <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-20">
-        Engineered for precision. Minimal design.
-      </p>
-      
+
+      <!-- Tagline -->
+      <div class="relative h-12 overflow-hidden mb-20 hero-lines">
+        <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
+          Engineered with precision. Designed by logic.
+        </p>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
+          Performance that stays calm under pressure.
+        </p>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
+          Power that feels effortless.
+        </p>
+      </div>
+
       <!-- Price badge -->
       <div class="inline-flex items-center bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-full text-2xl font-bold mb-16 shadow-2xl price-badge">
         <span class="text-3xl mr-2">₹</span>
@@ -38,14 +47,12 @@ document.getElementById('app').innerHTML = `
 
     <!-- 3D Phone Canvas -->
     <div class="flex justify-center mb-28">
-      <canvas id="phone-canvas" class="w-[450px] h-[850px]"></canvas>
+      <canvas id="phone-canvas" class="phone-canvas"></canvas>
     </div>
 
     <!-- Features Grid Section -->
     <div class="max-w-6xl mx-auto px-6 pb-16">
-      <!-- Tailwind CSS Grid - Responsive breakpoints md/lg with proper gap-8 spacing -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20" id="features-grid">
-        <!-- Glassmorphism feature cards - bg-white/5 with subtle border -->
         <div class="p-8 rounded-2xl bg-white/5 border border-white/10 feature-card">
           <h3 class="text-xl font-bold text-blue-400 mb-2">Display</h3>
           <p class="text-gray-300">6.7" OLED 120Hz</p>
@@ -64,10 +71,9 @@ document.getElementById('app').innerHTML = `
         </div>
       </div>
 
-      <!-- CTA Buttons Section -->
+      <!-- CTA Buttons -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-24">
-        <!-- Primary Buy Button - Blue gradient with SVG arrow icon animation -->
-        <button class="cta-button buy-btn group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-6 px-12 rounded-2xl text-xl shadow-2xl">
+        <button class="cta-button buy-btn reveal group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-6 px-12 rounded-2xl text-xl shadow-2xl">
           <span class="flex items-center">
             Buy Now 
             <!-- Arrow icon with hover slide animation -->
@@ -76,20 +82,18 @@ document.getElementById('app').innerHTML = `
             </svg>
           </span>
         </button>
-        
-        <!-- Secondary Booking Button - Green gradient with calendar icon -->
-        <button class="cta-button booking-btn group bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-6 px-12 rounded-2xl text-xl shadow-2xl">
+
+        <button class="cta-button booking-btn reveal group bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold py-6 px-12 rounded-2xl text-xl shadow-2xl">
           <span class="flex items-center">
-            Book Now 
-            <!-- Calendar SVG icon with hover animation -->
-            <svg class="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-            </svg>
-          </span>
-        </button>
-        
-        <!-- Glass morphism Learn More button with backdrop blur -->
-        <button class="cta-button learn-btn group bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-6 px-12 rounded-2xl text-xl backdrop-blur-sm shadow-2xl">
+             Book Now 
+             <!-- Calendar SVG icon with hover animation -->
+             <svg class="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+             </svg>
+           </span>
+         </button>
+
+        <button class="cta-button learn-btn reveal group bg-white/10 border border-white/20 text-white font-bold py-6 px-12 rounded-2xl text-xl backdrop-blur-sm shadow-2xl">
           Learn More
         </button>
       </div>
@@ -103,7 +107,7 @@ document.getElementById('app').innerHTML = `
         <!-- Responsive 3-column specs grid with gap-6 spacing -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <!-- Camera specs card - Consistent glassmorphism styling -->
-          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card">
+          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card reveal">
             <h4 class="text-lg font-bold text-emerald-400 mb-2">Camera</h4>
             <!-- Clean bullet list with space-y-1 perfect line spacing -->
             <ul class="text-gray-300 space-y-1">
@@ -113,16 +117,16 @@ document.getElementById('app').innerHTML = `
               <li>4K 120fps Video</li>
             </ul>
           </div>
-          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card">
+          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card reveal">
             <h4 class="text-lg font-bold text-orange-400 mb-2">Battery</h4>
             <ul class="text-gray-300 space-y-1">
-              <li>5000mAh</li>
+              <li>6500mAh</li>
               <li>80W Fast Charge</li>
               <li>50W Wireless</li>
               <li>12hr Video Playback</li>
             </ul>
           </div>
-          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card">
+          <div class="p-6 rounded-xl bg-white/5 border border-white/10 spec-card reveal">
             <h4 class="text-lg font-bold text-purple-400 mb-2">Connectivity</h4>
             <ul class="text-gray-300 space-y-1">
               <li>5G All Bands</li>
@@ -137,195 +141,316 @@ document.getElementById('app').innerHTML = `
   </div>
 `;
 
-// === THREE.JS SCENE INITIALIZATION ===
-// Create main scene object for 3D world container
+/* ================= THREE.JS ================= */
+const canvas = document.getElementById("phone-canvas");
 const scene = new THREE.Scene();
-const canvas = document.getElementById('phone-canvas');
-// Setup perspective camera - 45° FOV gives natural smartphone viewing angle
-const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-// Position camera 6.5 units away for perfect phone framing
+
+const camera = new THREE.PerspectiveCamera(
+  45,
+  canvas.clientWidth / canvas.clientHeight,
+  0.1,
+  1000
+);
 camera.position.set(0, 0, 6.5);
 
-
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+/* Renderer */
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  alpha: true,
+  antialias: true
+});
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.toneMapping = THREE.ACESFilmicToneMapping; 
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-// === SMARTPHONE BODY MODEL ===
-// Phone geometry matches real Phone proportions (width: 2.3, height: 4.6, depth: 0.3)
+/* PHONE BODY */
 const phoneGeometry = new RoundedBoxGeometry(2.3, 4.6, 0.3, 12, 0.32);
-// Premium metallic blue glass backplate material with realistic metalness/roughness
-const phoneMaterial = new THREE.MeshStandardMaterial({ color: 0x1e40af, metalness: 0.8, roughness: 0.2 });
+const phoneMaterial = new THREE.MeshStandardMaterial({
+  color: 0x1e40af,
+  metalness: 0.85,
+  roughness: 0.25
+});
 const phone = new THREE.Mesh(phoneGeometry, phoneMaterial);
 scene.add(phone);
 
-// === ALUMINUM FRAME MODEL ===
-// Slightly larger frame wraps around phone body (2.38 x 4.68 x 0.34)
+/* FRAME */
 const frameGeometry = new RoundedBoxGeometry(2.38, 4.68, 0.34, 12, 0.36);
-// High-polish aluminum frame with maximum metalness minimum roughness
-const frameMaterial = new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.95, roughness: 0.1 });
+const frameMaterial = new THREE.MeshStandardMaterial({
+  color: 0x94a3b8,
+  metalness: 0.95,
+  roughness: 0.15
+});
 const frame = new THREE.Mesh(frameGeometry, frameMaterial);
 scene.add(frame);
 
-// === LIGHTING EFFECT ===
-// Key light positioned top-right for main illumination 
-const keyLight = new THREE.DirectionalLight(0xffffff, 1.8); 
-keyLight.position.set(5, 8, 5); 
-scene.add(keyLight);
-// Blue rim light from left-back creates premium edge glow effect
-const rimLight = new THREE.DirectionalLight(0x3b82f6, 1.0); 
-rimLight.position.set(-4, 2, -4); 
-scene.add(rimLight);
-// Soft ambient fill light prevents harsh shadows
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); 
-scene.add(ambientLight);
+/*  LIGHTING  */
 
-// === ORBIT CONTROLS ===
+/* Key light */
+const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+keyLight.position.set(5, 8, 6);
+scene.add(keyLight);
+
+/* Rim light */
+const rimLight = new THREE.DirectionalLight(0x3b82f6, 1.2);
+rimLight.position.set(-6, 2, -5);
+scene.add(rimLight);
+
+/* Hemisphere = metallic realism */
+const hemiLight = new THREE.HemisphereLight(
+  0xffffff,
+  0x111827,
+  0.6
+);
+scene.add(hemiLight);
+
+/* Ambient fill */
+scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+
+/* CONTROLS */
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.enableZoom = false;   
-controls.rotateSpeed = 0.55;   
+controls.enableZoom = false;
 
-// === WINDOW RESIZE HANDLER ===
-// Maintain aspect ratio and canvas dimensions on browser resize
-window.addEventListener('resize', () => {
-  camera.aspect = canvas.clientWidth / canvas.clientHeight;
+function onResize() {
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  ScrollTrigger.refresh();
+}
+
+window.addEventListener("resize", onResize);
+
+/* GSAP PART */
+
+/* HERO SECTION */
+gsap.from("h1", {
+  y: 40,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out"
 });
 
-// === GSAP ANIMATIONS ===
-gsap.from("h1", { duration: 1, scale: 0.9, opacity: 0 });
+/* ONLY NEW ADDITION */
 
-// Staggered feature cards entrance - each card appears sequentially
-gsap.utils.toArray(".feature-card").forEach((card, i) => {
-  gsap.from(card, { duration: 0.6, y: 40, scale: 0.9, opacity: 0, delay: i * 0.12 + 0.8, ease: "back.out(1.6)" });
+const heroLines = gsap.utils.toArray(".hero-line");
+gsap.set(heroLines, { opacity: 0, y: 60 });
+gsap.set(heroLines[0], { opacity: 1, y: 0 });
+
+const heroTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".hero-pin",
+    start: "top top",
+    end: "+=200%",
+    scrub: 1,
+    pin: true,
+  }
 });
 
-// Price badge bouncy entrance animation with back.easeOut physics
+heroLines.forEach((line, i) => {
+  if (i === 0) return;
+  heroTL
+    .to(heroLines[i - 1], { y: -60, opacity: 0, duration: 0.4 })
+    .fromTo(line, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, "<");
+});
+
+heroTL.eventCallback("onReverseComplete", () => {
+  gsap.set(heroLines, { opacity: 0, y: 60 });
+  gsap.set(heroLines[0], { opacity: 1, y: 0 });
+});
+
+/* PRICE BADGE */
 const priceBadge = document.querySelector(".price-badge");
-gsap.from(priceBadge, { duration: 1.2, scale: 0.8, y: 30, opacity: 0, delay: 1.2, ease: "back.out(2)" });
+gsap.from(priceBadge, {
+  scale: 0.85,
+  y: 30,
+  opacity: 0,
+  duration: 1,
+  ease: "back.out(1.8)"
+});
 
-// === CTA BUTTON INTERACTIONS ===
-// 3D lift hover effect on all call-to-action buttons
-gsap.utils.toArray(".cta-button").forEach(button => {
-  button.addEventListener('mouseenter', () => {
-    // Complex 3D transform with lift, scale, rotation and dynamic shadow
-    gsap.to(button, { 
-      duration: 0.3, 
-      y: -12, 
-      scale: 1.08, 
-      rotationY: 8,
-      boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.6)", 
-      ease: "power2.out"
-    });
+/* PRICE HOVER */
+priceBadge.addEventListener("mouseenter", () => {
+  gsap.to(priceBadge, {
+    scale: 1.08,
+    y: -10,
+    boxShadow: "0 30px 60px rgba(0,255,0,0.4)",
+    duration: 0.3
   });
-  
-  button.addEventListener('mouseleave', () => {
-    // Smooth return to resting state with subtle shadow
-    gsap.to(button, { 
-      duration: 0.4, 
-      y: 0, 
-      scale: 1, 
-      rotationY: 0,
-      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)", 
-      ease: "power2.out"
-    });
+});
+priceBadge.addEventListener("mouseleave", () => {
+  gsap.to(priceBadge, {
+    scale: 1,
+    y: 0,
+    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+    duration: 0.3
   });
 });
 
-// CTA buttons slide-in entrance from left side
-gsap.from(".cta-button", { duration: 0.8, x: -50, opacity: 0, stagger: 0.15, delay: 1.8, ease: "power3.out" });
-
-// Technical specs cards staggered entrance animation
-gsap.from(".spec-card", { duration: 0.8, y: 50, opacity: 0, stagger: 0.15, delay: 2.2, ease: "power2.out" });
-
-// === PRICE BADGE SPECIAL EFFECTS ===
-// Green glowing hover effect highlights affordability on interaction
-priceBadge.addEventListener('mouseenter', () => {
-  gsap.to(priceBadge, { 
-    duration: 0.3, 
-    y: -12, 
-    scale: 1.08, 
-    rotationY: 8, 
-    boxShadow: "0 30px 60px -15px rgba(0, 255, 0, 0.4)", 
-    ease: "power2.out" 
-  });
-});
-priceBadge.addEventListener('mouseleave', () => {
-  gsap.to(priceBadge, { 
-    duration: 0.4, 
-    y: 0, 
-    scale: 1, 
-    rotationY: 0, 
-    boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)", 
-    ease: "power2.out" 
-  });
+/* FEATURE CARDS – SCROLL + HOVER */
+gsap.from(".feature-card", {
+  y: 50,
+  opacity: 0,
+  stagger: 0.15,
+  duration: 0.8,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: "#features-grid",
+    start: "top 80%",
+    toggleActions: "play none none reverse"
+  }
 });
 
-// === FEATURE CARDS MICRO-INTERACTIONS ===
+/* FEATURE CARDS PARALLAX (DEPTH EFFECT) */
+gsap.to(".feature-card", {
+  y: -30,
+  scrollTrigger: {
+    trigger: "#features-grid",
+    start: "top bottom",
+    end: "top top",
+    scrub: 1
+  }
+});
+
 gsap.utils.toArray(".feature-card").forEach(card => {
-  card.addEventListener('mouseenter', () => gsap.to(card, { 
-    duration: 0.3, 
-    y: -10, 
-    scale: 1.05, 
-    rotationY: 5, 
-    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)", 
-    ease: "power2.out" 
-  }));
+  card.addEventListener("mouseenter", () =>
+    gsap.to(card, {
+      y: -10,
+      scale: 1.05,
+      boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
+      duration: 0.3
+    })
+  );
 
-  card.addEventListener('mouseleave', () => gsap.to(card, { 
-    duration: 0.4, 
-    y: 0, 
-    scale: 1, 
-    rotationY: 0, 
-    boxShadow: "0 0 0 rgba(0, 0, 0, 0)", 
-    ease: "power2.out" 
-  }));
+  card.addEventListener("mouseleave", () =>
+    gsap.to(card, {
+      y: 0,
+      scale: 1,
+      boxShadow: "0 0 0 rgba(0,0,0,0)",
+      duration: 0.3
+    })
+  );
 });
 
-// === TECHNICAL SPECS HOVER EFFECTS ===
+/* CTA BUTTON HOVER POP-UP */
+gsap.utils.toArray(".cta-button").forEach(button => {
+  button.addEventListener("mouseenter", () => {
+    gsap.to(button, {
+      duration: 0.3,
+      y: -12,
+      scale: 1.08,
+      rotationY: 6,
+      boxShadow: "0 30px 60px -15px rgba(0,0,0,0.6)",
+      ease: "power2.out"
+    });
+  });
+
+  button.addEventListener("mouseleave", () => {
+    gsap.to(button, {
+      duration: 0.4,
+      y: 0,
+      scale: 1,
+      rotationY: 0,
+      boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+      ease: "power2.out"
+    });
+  });
+});
+
+/* TECH SPECS POP-UP HOVER */
 gsap.utils.toArray(".spec-card").forEach(card => {
-  // Unique X-axis rotation creates card flip effect for specs
-  card.addEventListener('mouseenter', () => gsap.to(card, { 
-    duration: 0.3, 
-    y: -8, 
-    scale: 1.03, 
-    rotationX: 3, 
-    boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.4)", 
-    ease: "power2.out" 
-  }));
+  card.addEventListener("mouseenter", () => {
+    gsap.to(card, {
+      duration: 0.3,
+      y: -8,
+      scale: 1.04,
+      rotationX: 4,
+      boxShadow: "0 25px 45px -10px rgba(0,0,0,0.45)",
+      ease: "power2.out"
+    });
+  });
 
-  card.addEventListener('mouseleave', () => gsap.to(card, { 
-    duration: 0.35, 
-    y: 0, 
-    scale: 1, 
-    rotationX: 0, 
-    boxShadow: "0 0 0 rgba(0, 0, 0, 0)", 
-    ease: "power2.out" 
-  }));
+  card.addEventListener("mouseleave", () => {
+    gsap.to(card, {
+      duration: 0.35,
+      y: 0,
+      scale: 1,
+      rotationX: 0,
+      boxShadow: "0 0 0 rgba(0,0,0,0)",
+      ease: "power2.out"
+    });
+  });
 });
 
-// === 3D PHONE ENTRANCE ANIMATION ===
-// Realistic physics-based scale animation from 0 to full size
-gsap.fromTo(phone.scale, { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1, duration: 1.2, ease: "back.out(1.7)", delay: 0.5 });
+/* PHONE ENTRANCE */
+gsap.fromTo(
+  phone.scale,
+  { x: 0, y: 0, z: 0 },
+  {
+    x: 1,
+    y: 1,
+    z: 1,
+    duration: 1.2,
+    ease: "back.out(1.7)"
+  }
+);
 
-// === MAIN RENDERING LOOP ===
+/* PHONE PARALLAX */
+gsap.to(phone.position, {
+  y: -0.4,
+  scrollTrigger: {
+    trigger: "#features-grid",
+    start: "top bottom",
+    end: "top top",
+    scrub: 1
+  }
+});
+
+/* CAMERA PARALLAX */
+gsap.to(camera.position, {
+  y: 0.15,
+  scrollTrigger: {
+    trigger: "#features-grid",
+    start: "top bottom",
+    end: "top top",
+    scrub: 1
+  }
+});
+
+gsap.to(keyLight.position, {
+  x: 2,
+  scrollTrigger: {
+    trigger: "#features-grid",
+    start: "top bottom",
+    end: "top top",
+    scrub: 1
+  }
+});
+
+// REVEAL ON SCROLL //
+gsap.utils.toArray(".reveal").forEach(el => {
+  gsap.from(el, {
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: el,
+      start: "top 85%",
+      toggleActions: "play none none reverse"
+    }
+  });
+});
+
+/* LOOP */
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
 }
 animate();
-
-/*
-Final Notes:
-Next features (future):
-- Phone screen wallpaper animation
-- Scroll-triggered section reveals
-- Mobile hamburger menu
-*/
-
-
-
