@@ -16,6 +16,20 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 /* ================= UI SETUP ================= */
 /* Premium dark UI using TailwindCSS */
 document.getElementById('app').innerHTML = `
+<section class="aptos-hero h-screen flex items-center justify-center bg-black text-white">
+  <h1 class="aptos-text text-6xl font-bold">
+    Aptos Style Scroll
+  </h1>
+</section>
+
+<section class="aptos-features py-40 bg-gray-900 text-white relative z-10">
+  <div class="aptos-card text-center mb-10">Fast</div>
+  <div class="aptos-card text-center mb-10">Secure</div>
+  <div class="aptos-card text-center mb-10">Scalable</div>
+</section>
+
+<div style="height: 100vh;"></div>
+
   <div class="min-h-screen bg-gradient-to-br from-slate-800 via-gray-900 to-black p-8">
 
     <!-- Hero Section -->
@@ -248,7 +262,7 @@ const heroTL = gsap.timeline({
     start: "top top",
     end: "+=200%",
     scrub: 1,
-    pin: true,
+    pin: false,
   }
 });
 
@@ -446,6 +460,39 @@ gsap.utils.toArray(".reveal").forEach(el => {
     }
   });
 });
+
+// New APTOS HERO SECTION SCROLL OUT
+
+gsap.fromTo(".aptos-text",
+  { y: 0, opacity: 1 },
+  {
+    y: -100,
+    opacity: 0,
+    scrollTrigger:{
+      trigger: ".aptos-hero",
+      start: "top top",
+      end: "+=100%",
+      scrub: true,
+      pin: true,
+      pinSpacing: true,
+    }
+  }
+);
+
+// APTOS FEATURES STAGGER
+
+gsap.from(".aptos-card", {
+  y: 80,
+  opacity: 0,
+  stagger: 0.2,
+  duration: 1,
+  scrollTrigger: {
+    trigger: ".aptos-features",
+    start: "top 80%",
+  }
+});
+
+ScrollTrigger.refresh();
 
 /* LOOP */
 function animate() {
