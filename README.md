@@ -1,63 +1,89 @@
-# VERTEX X1 – 3D Concept Device (Three.js + GSAP)
+# VERTEX X1 – 3D Concept Device
 
-A single-page product concept showcasing a 3D smartphone model using Three.js, with immersive, interactive animations handled by GSAP, including scroll-based hero transitions, parallax effects, and micro-interactions.
-Experience a dynamic product showcase where every scroll, hover, and interaction is intentional—designed to highlight features, specifications, and the elegance of motion design.
-The goal of this project was to understand how real-world frontend animation pipelines work when combining:
-- WebGL (Three.js)
-- UI animation libraries (GSAP)
-- Modern build tools (Vite)
+A premium single-page product concept built to explore how **3D visuals, scroll storytelling, and motion design** can work together in a modern frontend experience.  
+This project combines a custom Three.js device scene with GSAP-powered UI transitions, parallax motion, feature reveals, and interactive micro-animations to create a polished product landing page.
 
 ---
 
-## Why I built this
+## Overview
 
-I wanted to move beyond static webpages and explore how modern product websites integrate 3D visuals and motion-driven storytelling.
-This project focuses on:
-- Scroll-triggered hero storytelling: Sequential tagline reveals that react to user scroll
-- Parallax motion: Subtle 3D phone, camera, and lighting movements to enhance depth
-- Interactive feature exploration: Feature cards, technical specs, and CTA buttons that respond to hover and scroll
-- Clean separation of UI and 3D logic for maintainable and modular code
-- The goal was not just to make something visually flashy, but to create an engaging, interactive user experience that communicates the product’s precision and style.
+VERTEX X1 is a frontend concept project focused on building an immersive product showcase instead of a static webpage.  
+The main goal was to simulate the kind of high-impact motion experience often seen on premium tech landing pages while keeping the structure responsive, modular, and visually controlled.
+
+This project helped me practice:
+- 3D presentation using Three.js
+- Scroll-based storytelling using GSAP and ScrollTrigger
+- Responsive UI composition with TailwindCSS
+- Interaction design through hover states, reveals, and staggered motion
+- Structuring animation-heavy frontend code in a maintainable way
 
 ---
 
-## What I implemented myself
+## Focus Areas
 
-- Project setup using Vite and TailwindCSS
-- Three.js scene setup: Scene, camera, lights, and geometries
-- 3D smartphone model: Phone body and frame using RoundedBoxGeometry
-- OrbitControls for controlled camera interaction
+This project was mainly built around these core frontend areas:
 
-GSAP animations including:
+- **3D Web Experience** – Creating a stylized smartphone model and presenting it inside a cinematic product layout
+- **Scroll Animation** – Building section-based transitions, pinned hero movement, staggered feature reveals, and parallax depth
+- **Motion Design** – Using animation to guide attention, create rhythm, and improve how the interface feels
+- **Responsive Frontend Development** – Making sure the layout and interactions adapt properly across desktop and mobile screens
+- **UI Polish** – Refining typography, spacing, hover interactions, and content hierarchy for a more premium look
 
-- Pinned hero section with sequential tagline transitions
-- Feature cards and technical specs reveal on scroll
-- Parallax motion for phone, camera, and lighting
-- Interactive hover effects for buttons, feature cards, and price badge
-- Smooth entrance animations for price badge and CTA buttons
-- Responsive behavior on window resize
-- ScrollTrigger integration for advanced scroll-based animations
 ---
 
-## Learning sources & assistance
+## Features
 
-- Three.js: Official documentation and tutorials for geometry, lights, and controls
-- GSAP & ScrollTrigger: Official docs, demos, and experimentation for scroll-based animations
-- Implementation insights: Refined using personal experimentation and AI-assisted learning for optimization
-- All code reviewed and customized to ensure full understanding of each interaction and animation
+- 3D smartphone scene built with Three.js
+- Custom phone body and frame using `RoundedBoxGeometry`
+- Scroll-triggered hero transitions using GSAP + ScrollTrigger
+- Sequential text and feature reveal animations
+- Parallax movement for phone, camera, and lights
+- Interactive hover effects for cards, buttons, titles, and price badge
+- Technical specifications section with animated reveal behavior
+- Responsive layout optimized for mobile and desktop viewing
+- Vite-powered development workflow for fast iteration
 
 ---
 
 ## Tech Stack
 
-- Three.js
-- GSAP
-- Vite
-- TailwindCSS
+- **Three.js** – 3D scene, camera, lighting, geometry
+- **GSAP** – Motion system and interaction animation
+- **ScrollTrigger** – Scroll-linked transitions and section reveals
+- **TailwindCSS** – Layout, spacing, and styling
+- **Vite** – Project setup and development environment
 
 ---
 
-## How to run locally
+## What I Learned
 
+While building this project, I improved my understanding of:
+
+- how to combine WebGL and DOM-based animation in one experience
+- how scroll-triggered motion affects pacing and storytelling
+- how to keep animation-heavy code readable and manageable
+- how to balance visual impact with responsiveness
+- how small UI decisions improve the final polish of a product page
+
+---
+
+## Live Link
+
+https://vertex-x1-3-d-concept-device.vercel.app/
+
+---
+
+## Run Locally
+
+```bash
 npm install
 npm run dev
+```
+
+---
+
+## Project Goal
+
+The goal of this project was not just to build a stylish landing page, but to understand how premium product websites use motion, depth, and interaction to create a stronger frontend experience.
+
+---
