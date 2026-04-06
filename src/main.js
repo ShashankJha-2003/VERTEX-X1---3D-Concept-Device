@@ -16,25 +16,63 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 /* ================= UI SETUP ================= */
 /* Premium dark UI using TailwindCSS */
 document.getElementById('app').innerHTML = `
-<section class="aptos-hero h-screen flex items-center justify-center bg-black text-white">
+<section class="aptos-hero h-screen flex flex-col items-center justify-center bg-black text-white">
   <h1 class="aptos-text text-6xl font-bold">
-    Aptos Style Scroll
+  MEET VERTEX X1
   </h1>
+
+  <p class="hero-sub text-2xl md:text-3xl font-200 mt-4 text-gray-300 tracking-wide">
+  Not just a phone. A Statement.
+  </p>
+
+  <div class="hero-scroll-indicator absolute bottom-8 flex flex-col items-center gap-2 text-white/60">
+  <span class="text-sm uppercase tracking-[0.35em]">Scroll</span>
+  <svg class="w-6 h-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+    <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</div>
+
 </section>
 
-<section class="aptos-features py-40 bg-gray-900 text-white relative z-10">
-  <div class="aptos-card text-center mb-10">Fast</div>
-  <div class="aptos-card text-center mb-10">Secure</div>
-  <div class="aptos-card text-center mb-10">Scalable</div>
+<section class="aptos-features min-h-screen bg-neutral-900 text-white relative z-10 flex items-center justify-center px-6 md:px-12 lg:px-20">
+  <div class="w-full flex flex-col md:flex-row items-center justify-between gap-16 md:gap-24 lg:gap-32">
+    
+    <div class="aptos-card text-center flex-1">
+      <h3 class="text-[42px] md:text-[56px] lg:text-[64px] font-semibold tracking-[0.02em] leading-none">
+        Vision
+      </h3>
+      <p class="mt-5 text-[18px] md:text-[22px] text-gray-300 leading-snug">
+        Clarity in motion.
+      </p>
+    </div>
+
+    <div class="aptos-card text-center flex-1">
+      <h3 class="text-[42px] md:text-[56px] lg:text-[64px] font-semibold tracking-[0.02em] leading-none">
+        Versatile
+      </h3>
+      <p class="mt-5 text-[18px] md:text-[22px] text-gray-300 leading-snug">
+        Adapted for every move.
+      </p>
+    </div>
+
+    <div class="aptos-card text-center flex-1">
+      <h3 class="text-[42px] md:text-[56px] lg:text-[64px] font-semibold tracking-[0.02em] leading-none">
+        Vibrant
+      </h3>
+      <p class="mt-5 text-[18px] md:text-[22px] text-gray-300 leading-snug">
+        Powered by precision.
+      </p>
+    </div>
+
+  </div>
 </section>
 
-<div style="height: 100vh;"></div>
 
   <div class="min-h-screen bg-gradient-to-br from-slate-800 via-gray-900 to-black p-8">
 
     <!-- Hero Section -->
     <div class="max-w-4xl mx-auto text-center py-20 hero-pin">
-      <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent mb-8">
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent mb-8">
         VERTEX PHONE X1
       </h1>
 
@@ -42,13 +80,13 @@ document.getElementById('app').innerHTML = `
       <div class="relative h-12 overflow-hidden mb-20 hero-lines">
         <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
           Engineered with precision. Designed by logic.
-        </p>
+          </p>
         <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
           Performance that stays calm under pressure.
-        </p>
+          </p>
         <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto hero-line">
           Power that feels effortless.
-        </p>
+          </p>
       </div>
 
       <!-- Price badge -->
@@ -242,40 +280,125 @@ window.addEventListener("resize", onResize);
 
 /* GSAP PART */
 
-/* HERO SECTION */
-gsap.from("h1", {
-  y: 40,
+// New APTOS HERO SECTION SCROLL OUT
+
+gsap.fromTo(".aptos-text",
+  { y: 0, opacity: 1 },
+  {
+    y: -60,
+    scale: 0.95,
+    opacity: 0,
+    filter: "blur(4px)",
+    ease: "power2.out",
+    scrollTrigger:{
+      trigger: ".aptos-hero",
+      start: "top top",
+      end: "+=160%",
+      scrub: true,
+      pin: true,
+      pinSpacing: true,
+    }
+  }
+);
+
+gsap.to(".aptos-hero", {
+  opacity: 0,
+  scale: 0.96,
+  filter: "blur(6px)",
+  scrollTrigger: {
+    trigger: ".aptos-hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.fromTo(".hero-sub",
+  { y: 0, opacity: 1 },
+  {
+    y: -30,
+    opacity: 0,
+    filter: "blur(6px)",
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: ".aptos-hero",
+      start: "top top",
+      end: "+=160%",
+      scrub: true
+    }
+  }
+);
+
+gsap.from(".aptos-card", {
+  y: 70,
   opacity: 0,
   duration: 1,
-  ease: "power3.out"
+  ease: "power3.out",
+  stagger: 0.8,
+  delay: 1,
+  scrollTrigger: {
+    trigger: ".aptos-features",
+    start: "top 80%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+gsap.to(".aptos-features", {
+  scale:0.95,
+  opacity:0,
+  scrollTrigger: {
+    trigger: ".aptos-features",
+    start: "bottom 80%",
+    end: "bottom 30%",
+    scrub: true
+  }
+});
+
+/* HERO SECTION */
+gsap.from(".hero-pin", {
+  y: 100,
+  opacity: 0,
+  ease: "power2.out",
+  duration: 1.5,
+  scrollTrigger: {
+    trigger: ".hero-pin",
+    start: "top 85%",
+    end: "top 60%",
+    scrub: true
+  }
 });
 
 /* ONLY NEW ADDITION */
 
 const heroLines = gsap.utils.toArray(".hero-line");
-gsap.set(heroLines, { opacity: 0, y: 60 });
+
+gsap.set(heroLines, { opacity: 0, y: 40 });
 gsap.set(heroLines[0], { opacity: 1, y: 0 });
 
-const heroTL = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".hero-pin",
-    start: "top top",
-    end: "+=200%",
-    scrub: 1,
-    pin: false,
-  }
-});
+const tl = gsap.timeline({ repeat: -1 });
 
 heroLines.forEach((line, i) => {
-  if (i === 0) return;
-  heroTL
-    .to(heroLines[i - 1], { y: -60, opacity: 0, duration: 0.4 })
-    .fromTo(line, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, "<");
-});
+  const next = heroLines[i + 1] || heroLines[0];
 
-heroTL.eventCallback("onReverseComplete", () => {
-  gsap.set(heroLines, { opacity: 0, y: 60 });
-  gsap.set(heroLines[0], { opacity: 1, y: 0 });
+  tl.to({}, { duration: 1.2 }) // ⏸️ pause (READ TIME)
+
+    .to(line, {
+      y: -40,
+      opacity: 0,
+      duration: 0.7,
+      ease: "power.inOut"
+    })
+
+    .fromTo(next,
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: "power.inOut"
+      },
+      "<"
+    );
 });
 
 /* PRICE BADGE */
@@ -461,38 +584,53 @@ gsap.utils.toArray(".reveal").forEach(el => {
   });
 });
 
-// New APTOS HERO SECTION SCROLL OUT
+ScrollTrigger.refresh();
 
-gsap.fromTo(".aptos-text",
-  { y: 0, opacity: 1 },
-  {
-    y: -100,
-    opacity: 0,
-    scrollTrigger:{
-      trigger: ".aptos-hero",
-      start: "top top",
-      end: "+=100%",
-      scrub: true,
-      pin: true,
-      pinSpacing: true,
-    }
-  }
-);
-
-// APTOS FEATURES STAGGER
-
-gsap.from(".aptos-card", {
-  y: 80,
-  opacity: 0,
-  stagger: 0.2,
-  duration: 1,
-  scrollTrigger: {
-    trigger: ".aptos-features",
-    start: "top 80%",
-  }
+// APTOS HERO (stronger feel)
+gsap.utils.toArray(".aptos-text").forEach(el => {
+  el.addEventListener("mouseenter", () => {
+    gsap.to(el, { scale: 1.08, y: -8, duration: 0.3 });
+  });
+  el.addEventListener("mouseleave", () => {
+    gsap.to(el, { scale: 1, y: 0, duration: 0.3 });
+  });
 });
 
-ScrollTrigger.refresh();
+const sub = document.querySelector(".hero-sub");
+
+const lines = [
+  "Not just a Phone. A Statement.",
+  "Built Different. Built Vertex."
+];
+
+let i = 0;
+
+setInterval(() => {
+  gsap.to(sub, {
+    opacity: 0,
+    y: -10,
+    duration: 0.4,
+    onComplete: () => {
+      i = (i + 1) % lines.length;
+      sub.textContent = lines[i];
+
+      gsap.fromTo(sub,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4 }
+      );
+    }
+  });
+}, 3000);
+
+// VERTEX TITLE (premium minimal)
+gsap.utils.toArray(".hero-pin h1").forEach(el => {
+  el.addEventListener("mouseenter", () => {
+    gsap.to(el, { scale: 1.03, duration: 0.3 });
+  });
+  el.addEventListener("mouseleave", () => {
+    gsap.to(el, { scale: 1, duration: 0.3 });
+  });
+});
 
 /* LOOP */
 function animate() {
